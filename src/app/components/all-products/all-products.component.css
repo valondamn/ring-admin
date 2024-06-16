@@ -1,0 +1,22 @@
+.all-products{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.col-md-12{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 300px;
+
+  input{
+    width: 100%;
+  }
+}

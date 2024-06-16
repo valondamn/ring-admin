@@ -1,0 +1,69 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger" [hidden]="!hasError">
+        {{ errorMessage }}
+      </div>
+      <div class="alert alert-success" [hidden]="!success">
+        {{ successMessage }}
+      </div>
+    </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by Order ID" [(ngModel)]="searchOrderId" class="form-control" />
+    </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by User" [(ngModel)]="searchUser" class="form-control" />
+    </div>
+    <div class="col">
+      <table class="table table-bordered">
+        <thead class="bg-dark text-light">
+        <tr>
+          <th>Order ID</th>
+          <th>Product Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Order Date</th>
+          <th>User</th>
+          <th>Operations</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let order of filteredOrders()">
+          <td>{{ order.id }}</td>
+          <td>{{ order.title }}</td>
+          <td>{{ order.description }}</td>
+          <td>{{ order.total_amount | currency}}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.order_date | date}}</td>
+          <td>{{ order.username }}</td>
+          <td>
+            <button (click)="deleteOrder(order.id)" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="isEditMode || isAddMode" class="row mt-4">
+    <div class="col">
+      <form (ngSubmit)="isEditMode ? updateOrder() : addOrder()">
+        <div class="form-group">
+          <label for="userId">User ID</label>
+          <input [(ngModel)]="currentOrder.userId" name="userId" id="userId" class="form-control" type="number" required>
+        </div>
+        <div class="form-group" *ngFor="let product of currentOrder.products; let i = index">
+          <label for="productId">Product ID</label>
+          <input [(ngModel)]="product.id" name="productId{{i}}" id="productId" class="form-control" type="number" required>
+          <label for="quantity">Quantity</label>
+          <input [(ngModel)]="product.quantity" name="quantity{{i}}" id="quantity" class="form-control" type="number" required>
+          <button (click)="removeProduct(i)" type="button" class="btn btn-danger mt-2">Remove</button>
+        </div>
+        <button (click)="addProduct()" type="button" class="btn btn-secondary mt-2">Add Product</button>
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+        <button (click)="cancelEditOrAdd()" type="button" class="btn btn-secondary mt-3">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,61 @@
 <div class="container my-5">
+  <div class="all-products">
+    <div class="col-md-12">
+      <h4>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h4>
+      <form #productForm="ngForm" (ngSubmit)="isEditMode ? updateProduct(productForm) : addProduct(productForm)">
+        <input
+          type="text"
+          placeholder="title"
+          [(ngModel)]="currentProduct.title"
+          name="title"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Image URL"
+          [(ngModel)]="currentProduct.image"
+          name="image"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          [(ngModel)]="currentProduct.description"
+          name="description"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Short Description"
+          [(ngModel)]="currentProduct.short_desc"
+          name="short_desc"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Price"
+          [(ngModel)]="currentProduct.price"
+          name="price"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Quantity"
+          [(ngModel)]="currentProduct.quantity"
+          name="quantity"
+          required
+        />
+        <input
+          type="number"
+          placeholder="Category ID"
+          [(ngModel)]="currentProduct.cat_id"
+          name="cat_id"
+          required
+        />
+        <button type="submit">{{ isEditMode ? 'Update Product' : 'Add Product' }}</button>
+        <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">Cancel</button>
+      </form>
+    </div>
   <div class="row">
     <div class="col-12">
       <div class="alert alert-danger" [hidden]="!hasError">
@@ -8,6 +65,13 @@
         {{ errorMessage }}
       </div>
     </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by Product ID" [(ngModel)]="searchId" class="form-control" />
+    </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by Category" [(ngModel)]="searchCategory" class="form-control" />
+    </div>
+
     <div class="col">
       <table class="table table-bordered">
         <thead class="bg-dark text-light">
@@ -17,23 +81,31 @@
           <th width="40%">Description</th>
           <th>Price</th>
           <th>Category</th>
+          <th>Quantity</th>
           <th>Operation</th>
         </tr>
         </thead>
 
         <tbody>
-        <tr *ngFor="let p of products">
+        <tr *ngFor="let p of filteredProducts()">
           <td>{{ p.id }}</td>
-          <td>{{ p.name }}</td>
+          <td>{{ p.title }}</td>
           <td>{{ p.description }}</td>
           <td>{{ p.price | currency:'INR' }}</td>
           <td>{{ p.category }}</td>
+          <td>{{ p.quantity }}</td>
+
           <td>
             <button class="btn btn-sm btn-danger" (click)="deleteProduct(p.id)">Delete</button>
+            <button class="btn btn-sm btn-warning" (click)="editProduct(p)">Edit</button>
           </td>
         </tr>
+
         </tbody>
       </table>
     </div>
   </div>
+
+
+</div>
 </div>

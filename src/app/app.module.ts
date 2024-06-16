@@ -10,6 +10,10 @@ import {AllProductsComponent} from './components/all-products/all-products.compo
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import { AllUsersComponent } from './components/all-users/all-users.component';
+import { AllOrdersComponent } from './components/all-orders/all-orders.component';
+import { OrderAnalyticsComponent } from './components/order-analytics/order-analytics.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +22,16 @@ import {HttpClientModule} from '@angular/common/http';
     FooterComponent,
     SidebarComponent,
     MainContentComponent,
-    AllProductsComponent
+    AllProductsComponent,
+    AllUsersComponent,
+    AllOrdersComponent,
+    OrderAnalyticsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

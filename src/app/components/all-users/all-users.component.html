@@ -1,0 +1,69 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="alert alert-danger" [hidden]="!hasError">
+        {{ errorMessage }}
+      </div>
+      <div class="alert alert-success" [hidden]="!success">
+        {{ successMessage }}
+      </div>
+    </div>
+    <div class="col-md-12 form">
+      <h4>{{ isEditMode ? 'Edit User' : 'Add New User' }}</h4>
+      <form #userForm="ngForm" (ngSubmit)="isEditMode ? updateUser(userForm) : addUser(userForm)">
+        <input type="text" placeholder="Username" [(ngModel)]="currentUser.username" name="username" required />
+        <input type="email" placeholder="Email" [(ngModel)]="currentUser.email" name="email" required />
+        <input type="password" placeholder="Password" [(ngModel)]="currentUser.password" name="password" required />
+        <input type="text" placeholder="First Name" [(ngModel)]="currentUser.fname" name="fname" required />
+        <input type="text" placeholder="Last Name" [(ngModel)]="currentUser.lname" name="lname" required />
+        <input type="number" placeholder="Age" [(ngModel)]="currentUser.age" name="age" required />
+        <input type="number" placeholder="Role" [(ngModel)]="currentUser.role" name="role" required />
+        <input type="text" placeholder="Photo URL" [(ngModel)]="currentUser.photoUrl" name="photoUrl" required />
+        <input type="text" placeholder="Type" [(ngModel)]="currentUser.type" name="type" required />
+        <button type="submit">{{ isEditMode ? 'Update User' : 'Add User' }}</button>
+        <button type="button" (click)="cancelEdit()" *ngIf="isEditMode">Cancel</button>
+      </form>
+    </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by User ID" [(ngModel)]="searchId" class="form-control" />
+    </div>
+    <div class="col-12 mb-3">
+      <input type="text" placeholder="Search by Email" [(ngModel)]="searchEmail" class="form-control" />
+    </div>
+
+
+    <div class="col">
+      <table class="table table-bordered">
+        <thead class="bg-dark text-light">
+        <tr>
+          <th>Id</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Age</th>
+          <th>Photo URL</th>
+          <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of filteredUsers()">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.fname }}</td>
+          <td>{{ user.lname }}</td>
+          <td>{{ user.age }}</td>
+          <td>{{ user.photoUrl }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="deleteUser(user.id)">Delete</button>
+            <button class="btn btn-sm btn-warning" (click)="editUser(user)">Edit</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</div>

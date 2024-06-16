@@ -1,0 +1,38 @@
+<div class="container my-5">
+  <h1>Order Analytics</h1>
+
+  <div class="row mb-3">
+    <div class="col-12 col-md-4">
+      <div class="card text-center">
+        <div class="card-header">
+          Сумма заказов за сегодня
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ dailyRevenue | currency }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card text-center">
+        <div class="card-header">
+          Сумма заказов за неделю
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ weeklyRevenue | currency }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="card text-center">
+        <div class="card-header">
+          Сумма заказов за месяц
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ monthlyRevenue | currency }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

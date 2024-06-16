@@ -15,6 +15,19 @@ export class ProductService {
     return this.httpClient.get<any[]>('http://localhost:3000/api/products');
   }
 
+  addProduct(productData: any): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:3000/api/products/add', productData)
+      .pipe(
+        switchMap(() => this.getAllProducts())
+      );
+  }
+  updateProduct(productData: any): Observable<any> {
+    return this.httpClient.put<any>(`http://localhost:3000/api/products/${productData.id}`, productData)
+      .pipe(
+        switchMap(() => this.getAllProducts())
+      );
+  }
+
   deleteProduct(productId): Observable<any> {
     return this.httpClient.delete<{ message?: string, status: string }>(`http://localhost:3000/api/products/delete/${productId}`)
       .pipe(
